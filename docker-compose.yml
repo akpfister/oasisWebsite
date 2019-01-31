@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  web:
+    restart: always
+    build: .
+    volumes:
+      - .:/code
+    expose:
+      - "8000"
+    command: python /code/oasis/manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - redis
+    links:
+      - redis
+  redis:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    expose:
+      - "6379"
+
+  nginx:
+    restart: always
+    build: ./nginx/
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+    links:
+      - web:web

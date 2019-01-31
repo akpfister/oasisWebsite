@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="grid-container">
+  <div class="grid-x grid-padding-x">
+    <div class="large-up-1 small-12 cell">
+      <h1 class="text-center">Scroll down to see the Oasis Experience!</h1>
+    </div>
+  </div>
+</div>
+
+
+<div id="feeds">
+  <section class="white_area">
+    <div class="grid-x grid-padding-x">
+      <div class="large-6 medium-6 small-12 large-offset-3 medium-offset-3 cell">
+        {% for doc in all_documents  %}
+        <div class="card">
+          <div class="card-divider">
+            <h4 class="news-head">{{ doc.creation_date }}</h4>
+          </div>
+          <div class="card-section">
+            <img src="{{ doc.document.url }}" alt="News Logo" />
+          </div>
+          <div class="card-section">
+            <p>Posted by: {{ doc.author }}</p>
+            <p>At the {{ doc.creation_year }} Oasis.</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+  </div>
+  </section>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+  <section class="white_area">
+  <div class="grid-x grid-padding-x">
+    <div class="large-8 medium-8 small-12 large-offset-2 medium-offset-2 cell">
+      <h2>You can find pictures from previous Oasis events along with the photos that you have posted here down below.<h2>
+      <table>
+        <thead>
+          <tr>
+            <th width="100"><a href="/archive/2016" class="button">Take a Look at 2016 photos!</a></th>
+            <th width="100"><a href="/archive/2017" class="button">Take a Look at 2017 photos!</a></th>
+            <th width="100"><a href="/archive/2018" class="button">Take a Look at 2018 photos!</a></th>
+            <th width="100"><a href="/archive/2019" class="button">Take a Look at 2019 photos!</a></th>
+        </thead>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="white_area">
+  <div class="grid-x grid-padding-x">
+    <div class="large-8 medium-8 small-12 large-offset-2 medium-offset-2 cell">
+      {% if page %}
+        {% if year_docs %}
+          <div>
+            {% for doc in year_docs  %}
+            <div class="basic-card">
+              <div class="basic-card-image">
+                <img src="{{doc.document.url}}">
+              </div>
+              <div class="basic-card-content content callout secondary">
+                <p>Posted by: {{ doc.author }} on {{ doc.creation_date }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div>
+            <p class="text-center">There are no photos posted for the {{ page }} Oasis.</p>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="sky_section">
+  <div class="grid-x grid-padding-x">
+    <div class="large-8 medium-8 small-12 large-offset-2 medium-offset-2 cell">
+    {% if all_documents %}
+    <h2>Here are all the photos you have posted!</h2>
+      <div>
+        {% for doc in all_documents  %}
+        <div class="basic-card">
+          <div class="basic-card-image">
+            <img src="{{doc.document.url}}">
+          </div>
+          <div class="basic-card-content content callout secondary">
+            <p>You posted this on {{ doc.creation_date }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div>
+        <p class="text-center">Log in or post a photo to see photos that you post.</p>
+      </div>
+    {% endif %}
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="white_area">
+  <div class="grid-x grid-padding-x">
+    <div class="large-10 medium-10 small-12 large-offset-1 medium-offset-1 cell">
+      <h3 class="text-center">What is Oasis?</h3>
+      <p class="AboutPara">The Phi Kappa Tau fraternity of California State University, Chico holds a philanthropic concert
+        every fall in order to raise money and donate to the Serious Fun. The concert is held
+        in the backyard of their mansion on 611 W 5th St, Chico, CA from 9 p.m. to 12 a.m. Proceeds from the event
+        go to Serious Fun, a non-profit organization that helps send terminally ill kids to camp.
+      </p>
+      <p class="AboutPara">Ticket sales always begin 2 weeks before the concert on Chico State
+        campus and continue until the day of the event at the front door. We provide professional
+        security that check for weapons and alcohol to help ensure the safety of everyone attending and working the event.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="sky_section">
+  <div class="grid-x grid-padding-x">
+    <div class="large-10 medium-10 small-12 large-offset-1 medium-offset-1 cell">
+      <div class="about-the-author">
+        <h3 class="author-title">About Serious Fun</h3>
+        <div class="row">
+          <div class="small-12 medium-4 columns">
+            <div class="author-image">
+              <img src="{% static "css/img/seriousfun.jpg" %}" alt="Serious Fun Logo" />
+            </div>
+          </div>
+          <div class="small-12 medium-8 columns">
+            <h4 class="separator-left"><a href="https://www.seriousfunnetwork.org/" target="_blank">https://www.seriousfunnetwork.org/</a></h4>
+            <p>
+              Serious Fun is a non-profit organization whose main objective is to send terminally ill children and their families to summer camps all around the world, for free! America, Hungary, France, and the United Kingdom are just some of the countries that have camps that enrich the lives of not only the children affected, but also their family members as well. Any donation amount will help out tremendously in putting a smile on childrens' faces who need it.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gray_section">
+  <div class="grid-x grid-padding-x">
+    <div class="large-10 medium-10 small-12 large-offset-1 medium-offset-1 cell">
+      <h3 class="text-center">Previous Events</h3>
+      <table>
+        <thead>
+          <tr>
+            <th width="200">Month/Year</th>
+            <th>Summary</th>
+            <th width="150">Lead Organizer</th>
+            <th width="150">Mainstage</th>
+            <th width="150">Deephouse Bunker</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>October 2016</td>
+            <td>This year we brought out Jenaux to headline the stage. We upgraded the sound
+              system and improved the overall quality of the Oasis experience.</td>
+            <td>Jesse Erven</td>
+            <td>iMullinati, Jenaux</td>
+            <td>&nbsp;</td>
+          </tr>
+          {% for item in event_info %}
+          <tr>
+            <td>{{ item.date_of_event }}</td>
+            <td>{{ item.summary }}</td>
+            <td>{{ item.leader }}</td>
+            <td>{{ item.mainstage }}</td>
+            <td>{{ item.bunker }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sky_section">
+  <div class="grid-x grid-padding-x">
+    <div class="large-4 medium-4 small-12 large-offset-4 medium-offset-4 cell">
+      <h3 class="text-center">Previous Performers</h3>
+      {% for item in performer_info %}
+      <div class="card">
+        <div class="card-divider">
+          <h4 class="news-head">{{ item.performer_name }}</h4>
+        </div>
+        <div class="card-section">
+          <img src="{{ item.performer_pic.url }}" alt="Artist Logo" />
+        </div>
+        <div class="card-section">
+          <p>{{ item.date_performed }}</p>
+          <p><a href="{{ item.performer_url }}" target="_blank">Check {{ item.performer_name }} out!</a></p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

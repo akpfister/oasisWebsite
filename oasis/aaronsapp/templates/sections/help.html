@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="white_area">
+<div class="grid-x grid-padding-x">
+  <div class="large-10 medium-10 small-12 large-offset-1 medium-offset-1 cell">
+    <p class="HelpPara">If you have questions on what we do or why, check out the
+      <a href="/about/">about</a> page!
+    </p>
+    <p class="HelpPara">We have provided some common questions to help you here. If you need
+      further help, you can open a live chat with one of the brothers below!
+    </p>
+  </div>
+</div>
+
+<div class="grid-x grid-padding-x">
+  <div class="large-8 medium-8 small-12 large-offset-2 medium-offset-2 cell">
+    <div class="card-info alert">
+      <div class="card-info-label">
+        <div class="card-info-label-text">
+          &nbsp;
+        </div>
+      </div>
+      <div class="card-info-content">
+        <h3 class="lead">Where can tickets be sold?</h3>
+        <p>Tickets are sold up to two weeks prior to the event and will continue to be sold
+          at the door on the night of the event.
+        </p>
+      </div>
+    </div>
+
+    <div class="card-info primary">
+      <div class="card-info-label">
+        <div class="card-info-label-text">
+          &nbsp;
+        </div>
+      </div>
+      <div class="card-info-content">
+        <h3 class="lead">Where will the event be?</h3>
+        <p>The event takes place at the Phi Kappa Tau mansion on 611 W 5th St, Chico, CA.</p>
+      </div>
+    </div>
+
+    <div class="card-info success">
+      <div class="card-info-label">
+        <div class="card-info-label-text">
+          &nbsp;
+        </div>
+      </div>
+      <div class="card-info-content">
+        <h3 class="lead">What time does the event start?</h3>
+        <p>The event starts at 9 p.m. every year and ends at 12 a.m.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class = "gray_section">
+  <div class="grid-x grid-padding-x">
+    <div class="large-10 medium-10 small-12 large-offset-1 medium-offset-1 cell">
+      <p class="HelpPara">Brothers will be available to answer questions on Monday's,
+        Tuesday's and Wednesday's from 2 p.m. to 4 p.m. in any of the chat rooms listed
+        below.</br>
+        *Room buttons are only active if you are logged in.*
+      </p>
+      <div class="grid-x grid-padding-x">
+        <div class="large-8 medium-8 small-12 large-offset-2 medium-offset-2 cell">
+          <table>
+            <thead>
+              <tr>
+                {% if user.is_authenticated %}
+                <th width="75">Chat Rooms:</th>
+                <th width="50"><a href="Oasis" class="button">Oasis</a></th>
+                <th width="50"><a href="SeriousFun" class="button">Serious Fun</a></th>
+                <th width="50"><a href="Phi" class="button">Phi</a></th>
+                <th width="50"><a href="Kappa" class="button">Kappa</a></th>
+                <th width="50"><a href="Tau" class="button">Tau</a></th>
+                {% else %}
+                <th width="75">Chat Rooms:</th>
+                <th width="50"><a href="#" class="button">Oasis</a></th>
+                <th width="50"><a href="#" class="button">Serious Fun</a></th>
+                <th width="50"><a href="#" class="button">Phi</a></th>
+                <th width="50"><a href="#" class="button">Kappa</a></th>
+                <th width="50"><a href="#" class="button">Tau</a></th>
+                {% endif %}
+              </tr>
+            </thead>
+          </table>
+    </div>
+  </div>
+
+      <script>
+          // document.querySelector('#room-name-input').focus();
+          document.querySelector('#room-name-input').onkeyup = function(e) {
+              if (e.keyCode === 13) {  // enter, return
+                  document.querySelector('#room-name-submit').click();
+              }
+          };
+
+          document.querySelector('#room-name-submit').onclick = function(e) {
+              var roomName = document.querySelector('#room-name-input').value;
+              window.location.pathname = '/help/' + roomName + '/';
+          };
+      </script>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

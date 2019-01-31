@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static "css/foundation.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <script src="{% static "js/vendor/jquery.js" %}"></script>
+    <script src="//js.pusher.com/4.0/pusher.min.js"></script>
+
+    {% block head %}
+    {% endblock %}
+  </head>
+
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          {% if user.is_authenticated %}
+            <li><a href="/">Hello, {{ user.username }}</a></li>
+            <li><a href="/logout/">Logout</a></li>
+          {% else %}
+            <li><a href="/login/">Log In</a></li>
+            <li><a href="/register/">Sign Up</a></li>
+          {% endif %}
+          <li><a href="/">Home</a></li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="/news/">News</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/archive/">Archive</a></li>
+          <li><a href="/help/">Help</a></li>
+        </ul>
+      </div>
+    </div>
+
+  <!-- <div class="grid-container"> -->
+    <div class="grid-x grid-padding-x">
+      <div class="large-12 medium-12 small-12 cell">
+        <section class="background-master">
+
+          {% block header %}
+          {% endblock %}
+
+          {% if user.is_authenticated %}
+          <div class="grid-x grid-padding-x">
+            <div class="large-3 medium-3 small-12 cell">
+              <form  method="post" enctype="multipart/form-data" action="/push_feed" onsubmit="return feed_it()">
+                <input type="hidden" id="csrf" name="csrf" value="{{ csrf_token }}"/>
+
+                <h4 class="text-center">Upload an image of your experience at Oasis!</h4>
+                <input type="file" id="document" name="document" required>
+                <h4 class="text-center">What year was this taken?</h4>
+                <select id="creation_year" name="creation_year" required>
+                  <option value="2016">2016</option>
+                  <option value="2017">2017</option>
+                  <option value="2018">2018</option>
+                </select>
+                <button type="submit" class="button">Post It!</button>
+              </form>
+            </div>
+          </div>
+          {% else %}
+          <div class="grid-x grid-padding-x">
+            <div class="large-3 medium-3 small-12 cell">
+              <h4 class="text-center">Want to share your experience? Create an account!</h3>
+              <a href="/register/" class="button">Sign Up</a>
+              <h4 class="text-center">If you already have an account.</h3>
+              <a href="/login/" class="button">Log In</a>
+            </div>
+          </div>
+          {% endif %}
+        </section>
+      </div>
+    </div>
+
+
+</header>
+
+  {% block content %}
+  {% endblock %}
+
+  <script src="{% static "js/vendor/what-input.js" %}"></script>
+  <script src="{% static "js/vendor/foundation.js" %}"></script>
+  <script src="{% static "js/app.js" %}"></script>
+  {% block scripts %}
+  {% endblock %}
+
+</body>
+</html>

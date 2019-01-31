@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="sky_section">
+  <div class="grid-x grid-padding-x">
+    <div class="large-6 medium-6 small-12 large-offset-3 medium-offset-3 cell">
+      <h2 class="article-row-section-header">Check here for the latest news and announcements regarding Oasis!</h2>
+      {% for item in info %}
+      <div class="card">
+        <div class="card-divider">
+          <h4 class="news-head">{{ item.date_announced }}</h4>
+        </div>
+        <div class="card-section">
+          <img src="{{ item.document.url }}" alt="News Logo" />
+        </div>
+        <div class="card-section">
+          <p>{{ item.news }}</p>
+          <p class="article-row-content-author">Posted By: {{ item.name }}</p>
+          <p class="article-row-content-author">Posistion: {{ item.position }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="sky_section">
+  <div class="grid-x grid-padding-x">
+    <div class="large-6 medium-6 small-9 large-offset-1 medium-offset-1 cell">
+      <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
+      <input id="chat-message-input" type="text" size="100" placeholder="Please ask a question."/><br/>
+      <input id="chat-message-submit" type="button" value="Send"/>
+
+      <script>
+        var roomName = {{ room_name_json }};
+
+        var chatSocket = new WebSocket(
+            'ws://' + window.location.host +
+            '/ws/help/' + roomName + '/');
+
+        chatSocket.onmessage = function(e) {
+            var data = JSON.parse(e.data);
+            var message = data['message'];
+            document.querySelector('#chat-log').value += (message + '\n');
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            var messageInputDom = document.querySelector('#chat-message-input');
+            var message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': "{{ user.get_username }}" + ": " + message
+            }));
+
+            messageInputDom.value = '';
+        };
+      </script>
+    </div>
+    <div class="large-4 medium-4 small-3 cell">
+      <h3 class="text-center">You have joined the {{ room_name }} chat room.</h3>
+      <table>
+        <thead>
+          <tr>
+            <th width="50">Chat Rooms:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="/help/Oasis" class="button">Oasis</a></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td><a href="/help/SeriousFun" class="button">Serious Fun</a></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td><a href="/help/Phi" class="button">Phi</a></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td><a href="/help/Kappa" class="button">Kappa</a></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td><a href="/help/Tau" class="button">Tau</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
